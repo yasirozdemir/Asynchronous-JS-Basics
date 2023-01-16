@@ -1,7 +1,10 @@
-const getSongs = (url) => {
-  fetch(url, {
-    method: "GET",
-  })
+const getSongs = (queryKey) => {
+  fetch(
+    "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + queryKey,
+    {
+      method: "GET",
+    }
+  )
     .then((rawSongs) => rawSongs.json())
     .then((jsonSongs) => {
       showSongs(jsonSongs.data), countUnique(jsonSongs.data);
@@ -9,30 +12,26 @@ const getSongs = (url) => {
     .catch((error) => console.error(error));
 };
 
-let pinkFloydContainer = document.getElementById("pink-floyd");
-let daftPunkContainer = document.getElementById("daft-punk");
-let metallicaContainer = document.getElementById("metallica");
-
 const showSongs = (songDataArray) => {
   let container = null;
   for (song of songDataArray) {
     switch (song.artist.name) {
       case "Pink Floyd":
-        container = pinkFloydContainer;
+        container = document.getElementById("pink-floyd");
         break;
 
       case "Metallica":
-        container = metallicaContainer;
+        container = document.getElementById("daft-punk");
         break;
 
       case "Daft Punk":
-        container = daftPunkContainer;
+        container = document.getElementById("metallica");
         break;
     }
 
     container.innerHTML += `
-        <div class="card mx-1 my-1 pt-2 col-2">
-        <img src="${song.album.cover}" class="card-img-top w-100 rounded">
+        <div class="card my-1 pt-2 col-3">
+        <img src="${song.album.cover_big}" class="card-img-top w-100 rounded">
           <div class="card-body">
             <h5 class="card-title">${song.title_short}</h5>
             <a href="${song.artist.link}" class="card-subtitle text-muted" target="blank_">${song.artist.name}</a>
@@ -72,15 +71,6 @@ const createSongList = () => {
 };
 
 window.onload = () => {
-  getSongs(
-    "https://striveschool-api.herokuapp.com/api/deezer/search?q=pinkfloyd"
-  );
-
-  getSongs(
-    "https://striveschool-api.herokuapp.com/api/deezer/search?q=daftpunk"
-  );
-
-  getSongs(
-    "https://striveschool-api.herokuapp.com/api/deezer/search?q=metallica"
-  );
+  let artists = ["PinkFloyd", "DaftPunk", "Metallica"];
+  for (artist of artists) getSongs(artist);
 };
