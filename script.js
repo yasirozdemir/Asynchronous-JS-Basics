@@ -31,8 +31,8 @@ const showSongs = (songDataArray) => {
     }
 
     container.innerHTML += `
-        <div class="card col-2">
-        <img src="${song.album.cover}" class="card-img-top">
+        <div class="card mx-1 my-1 pt-2 col-2">
+        <img src="${song.album.cover}" class="card-img-top w-100 rounded">
           <div class="card-body">
             <h5 class="card-title">${song.title_short}</h5>
             <a href="${song.artist.link}" class="card-subtitle text-muted" target="blank_">${song.artist.name}</a>
@@ -55,7 +55,7 @@ const countUnique = (songDataArray) => {
 const showUniqueCount = () => {
   let countSpan = document.querySelector("#countUniqueModalBody span");
   countSpan.innerText = uniqueCount;
-  //   console.log("The number of unique albums in the page is: ", uniqueCount);
+  console.log("The number of unique albums in the page is: ", uniqueCount);
 };
 
 const createSongList = () => {
