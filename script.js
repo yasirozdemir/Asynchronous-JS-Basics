@@ -63,10 +63,13 @@ const createSongList = () => {
   let songTitlesArray = document.querySelectorAll(
     ".card .card-body .card-title"
   );
+  let i = 1;
   for (songTitle of songTitlesArray) {
     let listItem = document.createElement("li");
-    listItem.innerText = songTitle.innerText;
+    listItem.className = "list-group-item";
+    listItem.innerText = i + "- " + songTitle.innerText;
     songListOl.appendChild(listItem);
+    i++;
   }
 };
 
